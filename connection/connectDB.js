@@ -9,4 +9,3 @@ const connection = () => {
 }
 module.exports = connection
 
-//mongodb+srv://movieLogin:movieLogin@atlascluster.zgoi85r.mongodb.net/

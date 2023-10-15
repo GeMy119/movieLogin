@@ -6,7 +6,7 @@ const User = require('../../../connection/userModel')
 const register = async (req, res) => {
     try {
         const { userName, email, age, password, phone } = req.body
-        const user = await User.findOne(email)
+        const user = await User.findOne({ email: email })
         if (user) {
             res.status(StatusCodes.BAD_REQUEST).json({ message: "already registerd" })
         }
@@ -22,7 +22,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     try {
         let { email, password } = req.body
-        const user = await User.findOne(email)
+        const user = await User.findOne({ email })
         if (!user) {
             res.status(StatusCodes.BAD_REQUEST).json({ message: "email is not founded" })
         }
@@ -48,7 +48,8 @@ const addToWatchList = async (req, res) => {
         const user = await User.findById(id)
         if (user) {
             user.watchList.push(movie)
-            await user.save
+            await user.save()
+            console.log(user.watchList)
             res.status(StatusCodes.OK).json({ message: "added" })
         }
         else {
@@ -60,10 +61,11 @@ const addToWatchList = async (req, res) => {
 }
 const getWatchList = async (req, res) => {
     try {
-        const { id } = rea.params
-        const user = await user.findById(id)
+        const { id } = req.params
+        const user = await User.findById(id)
         if (user) {
             let watchList = user.watchList
+            console.log(user.watchList)
             res.status(StatusCodes.OK).json({ message: "watchList", watchList })
         }
         else {
