@@ -33,7 +33,7 @@ const login = async (req, res) => {
             }
             else {
                 const token = jwt.sign({ id: user._id, name: user.userName }, "gemy")
-                res.status(StatusCodes.BAD_REQUEST).json({ message: "welcome", token })
+                res.status(StatusCodes.OK).json({ message: "welcome", token })
             }
         }
 
